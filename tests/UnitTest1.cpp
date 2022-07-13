@@ -49,6 +49,13 @@ namespace UnitTest1
 			int start = 11;
 			Assert::AreEqual(res.GetStart(), start);
 		}
-
+		TEST_METHOD(Check_No_Rule)
+		{
+			FSM F4({ '0', '1' }, { 1, 2 }, 1, { 2 }, { { 1, -1 }, { 2, 2 } });
+			FSM F5({ '0', '1' }, { 1, 2, 3, 4 }, 1, { 3, 4 }, { { 2, 1 }, { 2, 3 }, { 3, 3 }, { 4, 4 } });
+			FSM res = F4 * F5;
+			
+			Assert::AreEqual(res.GetRules()[0][1], -1);
+		}
 	};
 }
