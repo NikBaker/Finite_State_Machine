@@ -30,6 +30,19 @@ public:
     // Разность двух ДКА
     FSM operator-(FSM& F) const;
     void FSM_to_SVG(const char* Out_File);
+
+    // для тестов
+    std::vector<int> GetFinalStates() {
+        return Finish_States;
+    }
+    std::vector<int> GetAllStates() {
+        return States;
+    }
+    int GetStart() {
+        return Start;
+    }
+
+
 private:
     // Отрицание ДКА
     FSM operator-() const;

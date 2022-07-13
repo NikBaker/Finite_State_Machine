@@ -4,21 +4,13 @@
 #include <set>
 #include <fstream>
 #include <cstdlib>
-
+#include <cassert>
 #include "FSM.h"
+
 
 int main()
 {
-    std::ofstream out_md("TEST.md");
-
-    /*FSM F;
-    F.Input();
-    std::cout << F;
-    FSM F2;
-    F2.Input();
-    std::cout << F2;
-    FSM F3 = F * F2;
-    std::cout << F3;*/
+    std::ofstream out_md("Result.md");
 
     FSM F4({ '0', '1' }, { 1, 2 }, 1, { 2 }, { { 1, 2 }, { 2, 2 } });
     FSM F5({ '0', '1' }, { 1, 2, 3, 4 }, 1, { 3, 4 }, { { 2, 1 }, { 2, 3 }, { 3, 3 }, { 4, 4 } } );
