@@ -134,12 +134,12 @@ ostream& operator<<(ostream& os, const FSM& F) {
 		os << endl;
 	}
 	
-	// "-1" в матрице и в -> означает, что по данной букве нет перехода
+	// "-1" РІ РјР°С‚СЂРёС†Рµ Рё РІ -> РѕР·РЅР°С‡Р°РµС‚, С‡С‚Рѕ РїРѕ РґР°РЅРЅРѕР№ Р±СѓРєРІРµ РЅРµС‚ РїРµСЂРµС…РѕРґР°
 
 	return os;
 }
 
-// конкатенация двух интов
+// РєРѕРЅРєР°С‚РµРЅР°С†РёСЏ РґРІСѓС… РёРЅС‚РѕРІ
 int concat(int n, int m) {
 	int res = n;
 	for (int i = m; i != 0; i /= 10) {
@@ -182,7 +182,7 @@ FSM FSM::operator*(const FSM& F) const {
 	int k = F.Matrix.size();
 	for (int i = 0; i < result.States.size(); ++i) {
 		for (int j = 0; j < result.E.size(); ++j) {
-			// Если не определен какой-то переход в одном из автоматов, то в итоговом автомате этот переход тоже будет не определен
+			// Р•СЃР»Рё РЅРµ РѕРїСЂРµРґРµР»РµРЅ РєР°РєРѕР№-С‚Рѕ РїРµСЂРµС…РѕРґ РІ РѕРґРЅРѕРј РёР· Р°РІС‚РѕРјР°С‚РѕРІ, С‚Рѕ РІ РёС‚РѕРіРѕРІРѕРј Р°РІС‚РѕРјР°С‚Рµ СЌС‚РѕС‚ РїРµСЂРµС…РѕРґ С‚РѕР¶Рµ Р±СѓРґРµС‚ РЅРµ РѕРїСЂРµРґРµР»РµРЅ
 			if (Matrix[i / k][j] == -1 || F.Matrix[i % k][j] == -1) {		
 				temp[i][j] = -1;
 			}
@@ -209,7 +209,7 @@ FSM FSM::operator+(const FSM& F) const {	// Finish_States = (Finish_States1 x St
 	for (int i = 0; i < States.size(); ++i) {
 		for (int j = 0; j < F.Finish_States.size(); ++j) {
 			int temp = concat(States[i], F.Finish_States[j]);
-			// Если такого конечного состояния ещё нет:
+			// Р•СЃР»Рё С‚Р°РєРѕРіРѕ РєРѕРЅРµС‡РЅРѕРіРѕ СЃРѕСЃС‚РѕСЏРЅРёСЏ РµС‰С‘ РЅРµС‚:
 			if (find(result.Finish_States.begin(), result.Finish_States.end(), temp) == result.Finish_States.end()) {
 				Fin_for_res.push_back(concat(States[i], F.Finish_States[j]));
 			}
@@ -224,12 +224,12 @@ FSM FSM::operator-() const{
 	FSM result = *this;
 	vector<int> temp;
 	for (const auto& s : States) {
-		// Если состояние было неконечным, то добавляем его в temp
+		// Р•СЃР»Рё СЃРѕСЃС‚РѕСЏРЅРёРµ Р±С‹Р»Рѕ РЅРµРєРѕРЅРµС‡РЅС‹Рј, С‚Рѕ РґРѕР±Р°РІР»СЏРµРј РµРіРѕ РІ temp
 		if (find(Finish_States.begin(), Finish_States.end(), s) == Finish_States.end()) {
 			temp.push_back(s);
 		}
 	}
-	// Обновляем вектор конечных состояний
+	// РћР±РЅРѕРІР»СЏРµРј РІРµРєС‚РѕСЂ РєРѕРЅРµС‡РЅС‹С… СЃРѕСЃС‚РѕСЏРЅРёР№
 	result.Finish_States = temp;
 
 	return result;
@@ -241,14 +241,14 @@ FSM FSM::operator-(FSM& F) const {
 
 
 void FSM::FSM_to_SVG(const char* Out_File) {
-	// Создаем дот файл с описанием автомата
+	// РЎРѕР·РґР°РµРј РґРѕС‚ С„Р°Р№Р» СЃ РѕРїРёСЃР°РЅРёРµРј Р°РІС‚РѕРјР°С‚Р°
 	ofstream out(Out_File);
 	out << "digraph {\n";
 	out << " rankdir=\"LR\";\n";
 	out << " start [style=filled,color=white, label = \"\"];\n";
 
 	for (const auto& s : States) {
-		// если состояние является конечным
+		// РµСЃР»Рё СЃРѕСЃС‚РѕСЏРЅРёРµ СЏРІР»СЏРµС‚СЃСЏ РєРѕРЅРµС‡РЅС‹Рј
 		if (find(Finish_States.begin(), Finish_States.end(), s) != Finish_States.end()) {
 			out << "  " << s << "[shape=doublecircle]" << ";\n";
 		}
@@ -273,7 +273,7 @@ void FSM::FSM_to_SVG(const char* Out_File) {
 	}
 	out << "}\n";
 
-	// Преобразовываем получившийся дот в svg-картику при помощи dot.exe
+	// РџСЂРµРѕР±СЂР°Р·РѕРІС‹РІР°РµРј РїРѕР»СѓС‡РёРІС€РёР№СЃСЏ РґРѕС‚ РІ svg-РєР°СЂС‚РёРєСѓ РїСЂРё РїРѕРјРѕС‰Рё dot.exe
 	char str[100];
 	sprintf_s(str, "start debug\\dot\\dot -Tsvg -O %s %s", Out_File, Out_File);
 	system(str);
