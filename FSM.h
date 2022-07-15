@@ -7,15 +7,15 @@
 class FSM
 {
 private:
-    // 1. Алфавит 
+    // 1. РђР»С„Р°РІРёС‚
     std::vector<char> E;
-    // 2. Множество состояний
+    // 2. РњРЅРѕР¶РµСЃС‚РІРѕ СЃРѕСЃС‚РѕСЏРЅРёР№
     std::vector<int> States;
-    // 3. Начальное состояние
+    // 3. РќР°С‡Р°Р»СЊРЅРѕРµ СЃРѕСЃС‚РѕСЏРЅРёРµ
     int Start;                              // Initial_State
-    // 4. Множество конечных состояний
+    // 4. РњРЅРѕР¶РµСЃС‚РІРѕ РєРѕРЅРµС‡РЅС‹С… СЃРѕСЃС‚РѕСЏРЅРёР№
     std::vector<int> Finish_States;            // Final_States        
-    // 5. Правила переходов
+    // 5. РџСЂР°РІРёР»Р° РїРµСЂРµС…РѕРґРѕРІ
     std::vector<std::vector<int>> Matrix;   // Rules
 public:
     FSM();
@@ -23,15 +23,15 @@ public:
         E(E_), States(States_), Start(Start_), Finish_States(Finish_States_), Matrix(Matrix_) {};
     void Input();
     friend std::ostream& operator<<(std::ostream& os, const FSM& F);
-    // Пересечение двух ДКА
+    // РџРµСЂРµСЃРµС‡РµРЅРёРµ РґРІСѓС… Р”РљРђ
     FSM operator*(const FSM& F) const;
-    // Объединение двух ДКА
+    // РћР±СЉРµРґРёРЅРµРЅРёРµ РґРІСѓС… Р”РљРђ
     FSM operator+(const FSM& F) const;
-    // Разность двух ДКА
+    // Р Р°Р·РЅРѕСЃС‚СЊ РґРІСѓС… Р”РљРђ
     FSM operator-(FSM& F) const;
     void FSM_to_SVG(const char* Out_File);
 
-    // для тестов
+    // РґР»СЏ С‚РµСЃС‚РѕРІ
     std::vector<int> GetFinalStates() {
         return Finish_States;
     }
@@ -44,7 +44,7 @@ public:
 
 
 private:
-    // Отрицание ДКА
+    // РћС‚СЂРёС†Р°РЅРёРµ Р”РљРђ
     FSM operator-() const;
 };
 
